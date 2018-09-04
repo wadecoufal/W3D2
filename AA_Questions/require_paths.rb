@@ -1,0 +1,5 @@
+require_relative 'Model/Question.rb'
+require_relative 'Model/User.rb'
+require_relative 'Model/Reply.rb'
+require_relative 'Model/question_follow.rb'
+require_relative 'questions_database.rb'
