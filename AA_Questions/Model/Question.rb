@@ -65,4 +65,7 @@ class Question
     replies.map {|reply| Reply.new(reply)}
   end
     
+  def followers
+    QuestionFollow.followers_for_question_id(id)
+  end
 end

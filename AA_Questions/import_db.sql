@@ -88,6 +88,11 @@ VALUES
   (SELECT id FROM questions WHERE title = "Earl Question")
 );
 
+INSERT INTO
+  question_follows (users_id, questions_id)
+VALUES
+  (1, 1), (1,2), (1,3), (3,5);
+
 
 -- REPLIES
 
@@ -141,6 +146,7 @@ VALUES
 -- and here is the lazy way to add some seed data:
 INSERT INTO question_likes (user_id, question_id) VALUES (1, 1);
 INSERT INTO question_likes (user_id, question_id) VALUES (1, 2);
+
 
   
 

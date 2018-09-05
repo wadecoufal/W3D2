@@ -8,6 +8,32 @@ class User
     @id = options['id']
   end
   
+  def save
+    raise "#{self} already in database." if @id
+    
+    QuestionsDatabase.instance.execute(<<-SQL, fname, lname)
+      INSERT INTO
+        users (fname, lname)
+      VALUES
+        (?, ?)
+    SQL
+    @id = QuestionsDatabase.instance.last_insert_row_id
+  end
+  
+  def update
+    raise "#{self} not in database" unless @id
+    
+    QuestionsDatabase.instance.execute(<<-SQL, fname, lname, id)
+      UPDATE
+        users 
+      SET
+        fname = ?, lname = ?
+      WHERE
+        id = ?
+    SQL
+    
+  end
+  
   def self.find_by_id(id)
     users = QuestionsDatabase.instance.execute(<<-SQL, id)
       SELECT
@@ -61,4 +87,7 @@ class User
     replies.map {|reply| Reply.new(reply)}
   end
   
+  def followed_questions
+    QuestionFollow.followed_questions_for_user_id(id)
+  end
 end
